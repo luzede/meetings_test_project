@@ -26,25 +26,6 @@ MakeSession = sessionmaker(bind=engine, expire_on_commit=False)
 def db_init():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
-    session = MakeSession()
-    edo = User(username="edo", first_name="Edo", last_name="Mirakyan")
-    mari = User(username="mari", first_name="Mari", last_name="Zervaki")
-    session.add_all([edo, mari])
-    session.commit()
-    meeting1 = Meeting(
-        title=mari.username,
-        user_id=mari.username,
-        start_date=datetime.datetime.utcnow(),
-        end_date=datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-        users=[edo],
-    )
-    session.add(meeting1)
-    session.commit()
-    # session.delete(edo)
-    # session.commit()
-    session.close()
-    # session.add_all([meeting1])
-    # session.commit()
 
 
 def get_session() -> Session:
